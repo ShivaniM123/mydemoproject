@@ -25,3 +25,57 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
 }
+
+/* Earnings variant — flat cards, no borders, left-aligned text */
+.cards.earnings > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+.cards.earnings > ul > li {
+  border: 0;
+  background-color: transparent;
+  padding: 20px;
+  text-align: left;
+}
+
+.cards.earnings .cards-card-image {
+  margin-bottom: 15px;
+}
+
+.cards.earnings > ul > li img {
+  max-width: 223px;
+  height: 160px;
+  object-fit: contain;
+  aspect-ratio: auto;
+}
+
+.cards.earnings .cards-card-body h2,
+.cards.earnings .cards-card-body h3 {
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--dark-color);
+  margin: 20px 0 10px;
+}
+
+.cards.earnings .cards-card-body p {
+  font-size: 20px;
+  color: var(--dark-color);
+  line-height: 30px;
+  margin: 0;
+}
+
+@media (width >= 600px) {
+  .cards.earnings > ul > li {
+    width: 50%;
+    box-sizing: border-box;
+  }
+}
+
+@media (width >= 900px) {
+  .cards.earnings > ul > li {
+    width: 33.333%;
+  }
+}

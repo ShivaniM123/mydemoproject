@@ -358,3 +358,90 @@ main .section.cta-section {
 main .section.cta-section h2 {
   font-size: var(--heading-font-size-xl);
 }
+
+/* Hero centered section (text only, no image) */
+main .section.hero-centered {
+  margin: 0;
+  padding: var(--section-padding) 24px;
+  text-align: center;
+  background-color: var(--background-color);
+}
+
+main .section.hero-centered h1 {
+  font-size: 48px;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+main .section.hero-centered .default-content-wrapper p {
+  font-size: 18px;
+  color: var(--dark-color);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Earnings cards section (light blue background) */
+main .section.earnings-light {
+  background-color: var(--section-bg-light);
+  margin: 0;
+  padding: var(--section-padding) 0;
+}
+
+main .section.earnings-light .default-content-wrapper h2 {
+  text-align: center;
+  font-size: var(--heading-font-size-xl);
+  font-weight: 500;
+  color: var(--dark-color);
+  margin-bottom: var(--gap-lg);
+}
+
+/* Boost your earnings section (white background, icon list) */
+main .section.boost-section {
+  margin: 0;
+  padding: var(--section-padding) 0;
+  background-color: var(--background-color);
+}
+
+main .section.boost-section .default-content-wrapper h2 {
+  text-align: center;
+  font-size: var(--heading-font-size-xl);
+  font-weight: 500;
+  color: var(--dark-color);
+  margin-bottom: var(--gap-lg);
+}
+
+main .section.boost-section .default-content-wrapper ul {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+main .section.boost-section .default-content-wrapper li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-md);
+}
+
+main .section.boost-section .default-content-wrapper li img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+main .section.boost-section .default-content-wrapper li strong {
+  display: block;
+  font-size: var(--heading-font-size-s);
+  font-family: var(--heading-font-family);
+  margin-bottom: 4px;
+}
+
+/* Get your earnings section (light blue background) */
+main .section.get-earnings {
+  background-color: var(--section-bg-light);
+  margin: 0;
+  padding: var(--section-padding) 0;
+}
