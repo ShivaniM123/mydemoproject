@@ -1,1 +1,57 @@
-/* add global styles that can be loaded post LCP here */
+/* Promo banner section */
+main .section.promo-banner {
+  background-color: var(--section-bg-highlight);
+  margin: 0;
+  padding: var(--section-padding) 0;
+}
+
+main .section.promo-banner > div {
+  max-width: 800px;
+}
+
+main .section.promo-banner h2 {
+  text-align: center;
+  font-size: var(--heading-font-size-xl);
+  color: var(--text-color);
+}
+
+main .section.promo-banner p {
+  text-align: center;
+  color: var(--dark-color);
+}
+
+/* Product list items in promo-banner */
+main .section.promo-banner ul {
+  list-style: none;
+  padding: 0;
+  margin: var(--gap-lg) 0;
+}
+
+main .section.promo-banner ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  padding: var(--gap-sm) 0;
+}
+
+main .section.promo-banner ul li img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+main .section.promo-banner .button-wrapper {
+  text-align: center;
+}
+
+/* Light offers section */
+main .section.offers-light {
+  background-color: var(--section-bg-light);
+  margin: 0;
+  padding: var(--section-padding) 0;
+}
+
+main .section.offers-light > div > h2,
+main .section.offers-light > div > p {
+  text-align: center;
+}
