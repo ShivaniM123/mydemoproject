@@ -81,7 +81,6 @@
 /* Video embed */
 .hero.hero-split .hero-video-wrapper {
   position: relative;
-  padding-bottom: 56.25%;
   border-radius: var(--border-radius);
   overflow: hidden;
 }
