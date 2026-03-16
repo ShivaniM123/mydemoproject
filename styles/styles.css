@@ -18,6 +18,16 @@
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
+  --primary-color: #1a3b8a;
+  --primary-dark: #0d2660;
+  --accent-color: #ffc220;
+  --section-bg-light: #eef2fb;
+  --card-shadow: 0 2px 12px rgb(0 0 0 / 8%);
+  --card-shadow-hover: 0 8px 24px rgb(0 0 0 / 14%);
+  --border-radius: 12px;
+  --gap-sm: 16px;
+  --gap-md: 24px;
+  --gap-lg: 40px;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -254,17 +264,20 @@ button.button.secondary:disabled:focus-visible {
 /* high-impact call-to-action */
 a.button.accent,
 button.button.accent {
-  border-color: var(--link-color);
-  background-color: var(--link-color);
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
   color: var(--background-color);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
 }
 
 a.button.accent:hover,
 a.button.accent:focus-visible,
 button.button.accent:hover,
 button.button.accent:focus-visible {
-  border-color: var(--link-hover-color);
-  background-color: var(--link-hover-color);
+  border-color: var(--primary-dark);
+  background-color: var(--primary-dark);
 }
 
 a.button.accent[aria-disabled="true"],

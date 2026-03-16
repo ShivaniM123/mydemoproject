@@ -1,1 +1,82 @@
-/* add global styles that can be loaded post LCP here */
+/* Centered hero section (text only, no image) */
+main .section.hero-centered {
+  margin: 0;
+  padding: 48px 0;
+  text-align: center;
+}
+
+main .section.hero-centered h1 {
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 700;
+}
+
+main .section.hero-centered p {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--dark-color);
+}
+
+/* Section background styles */
+main .section.earnings-light {
+  background-color: var(--section-bg-light);
+  margin: 0;
+  padding: 48px 0;
+}
+
+main .section.earnings-light .default-content-wrapper h2 {
+  text-align: center;
+  font-size: 36px;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+main .section.boost-section {
+  margin: 0;
+  padding: 48px 0;
+}
+
+main .section.boost-section .default-content-wrapper h2 {
+  text-align: center;
+  margin-bottom: var(--gap-lg);
+}
+
+main .section.boost-section ul {
+  list-style: none;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+main .section.boost-section li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-md);
+}
+
+main .section.boost-section li img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+main .section.boost-section li strong {
+  display: block;
+  font-size: var(--heading-font-size-s);
+  font-family: var(--heading-font-family);
+  margin-bottom: 4px;
+}
+
+main .section.get-earnings {
+  background-color: var(--section-bg-light);
+  margin: 0;
+  padding: 48px 0;
+}
+
+main .section.cta-section {
+  background-color: var(--light-color);
+  margin: 0;
+  padding: 48px 0;
+}

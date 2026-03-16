@@ -1,0 +1,32 @@
+.cta-container .cta-wrapper {
+  max-width: unset;
+  padding: 0;
+}
+
+.cta {
+  text-align: center;
+  padding: 56px 24px;
+}
+
+.cta .cta-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.cta h2 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: 700;
+  color: var(--text-color);
+  margin-top: 0;
+}
+
+.cta p {
+  color: var(--dark-color);
+  font-size: var(--body-font-size-m);
+}
+
+@media (width >= 900px) {
+  .cta {
+    padding: 72px 32px;
+  }
+}
