@@ -31,3 +31,31 @@
     order: unset;
   }
 }
+
+/* Get-earnings variant — wallet image + text layout */
+.columns.get-earnings h2 {
+  font-size: var(--heading-font-size-xl);
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+.columns.get-earnings p {
+  font-size: 18px;
+  color: var(--dark-color);
+  line-height: 1.6;
+}
+
+.columns.get-earnings > div > div:first-child img {
+  max-width: 200px;
+  width: auto;
+  height: auto;
+}
+
+.columns.get-earnings a.button.secondary {
+  border-color: var(--primary-color);
+  color: var(--dark-color);
+  border-radius: 30px;
+  padding: 11px 44px;
+  font-size: 14px;
+  font-weight: 700;
+}
