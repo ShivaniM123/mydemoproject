@@ -21,6 +21,7 @@
   --primary-color: #1a3b8a;
   --primary-dark: #0d2660;
   --accent-color: #ffc220;
+  --border-color: #e5e5e5;
   --section-bg-light: #eef2fb;
   --section-bg-highlight: #f5f7fa;
   --card-shadow: 0 2px 12px rgb(0 0 0 / 8%);
@@ -364,7 +365,7 @@ main .section.hero-centered {
   margin: 0;
   padding: var(--section-padding) 24px;
   text-align: center;
-  background-color: var(--background-color);
+  background-color: var(--light-color);
 }
 
 main .section.hero-centered h1 {
@@ -444,4 +445,17 @@ main .section.get-earnings {
   background-color: var(--section-bg-light);
   margin: 0;
   padding: var(--section-padding) 0;
+}
+
+/* FAQ navigation section (search + category toolbar) */
+main .section.faq-nav {
+  margin: 0;
+  padding: var(--gap-md) 0 var(--gap-lg);
+  background-color: var(--background-color);
+}
+
+/* Hidden FAQ sections (filtered by search or category tab) */
+main .section.faq-section-hidden,
+main .section.faq-category-filtered {
+  display: none;
 }

@@ -1,0 +1,78 @@
+{
+  "templates": [
+    {
+      "name": "faqs-page",
+      "urls": [
+        "https://www.sparkdriverapp.com/en_us/faqs.html"
+      ],
+      "description": "Frequently asked questions page with expandable FAQ sections covering topics like getting started, earnings, incentives, and support",
+      "blocks": [
+        {
+          "name": "accordion",
+          "instances": [
+            ".faq-category .accordion-group"
+          ],
+          "section": "faq-section"
+        }
+      ],
+      "sections": [
+        {
+          "id": "hero",
+          "name": "FAQ Hero",
+          "selector": ".hero-section",
+          "style": "hero-centered",
+          "blocks": [],
+          "defaultContent": ["h1"]
+        },
+        {
+          "id": "faq-getting-started",
+          "name": "Getting Started FAQs",
+          "selector": ".faq-category:nth-child(1)",
+          "style": null,
+          "blocks": ["accordion"],
+          "defaultContent": ["h2"]
+        },
+        {
+          "id": "faq-earnings",
+          "name": "Earnings & Rewards FAQs",
+          "selector": ".faq-category:nth-child(2)",
+          "style": null,
+          "blocks": ["accordion"],
+          "defaultContent": ["h2"]
+        },
+        {
+          "id": "faq-eligibility",
+          "name": "Eligibility FAQs",
+          "selector": ".faq-category:nth-child(3)",
+          "style": null,
+          "blocks": ["accordion"],
+          "defaultContent": ["h2"]
+        },
+        {
+          "id": "faq-general",
+          "name": "General FAQs",
+          "selector": ".faq-category:nth-child(4)",
+          "style": null,
+          "blocks": ["accordion"],
+          "defaultContent": ["h2"]
+        },
+        {
+          "id": "help-link",
+          "name": "Help Link",
+          "selector": ".help-link-section",
+          "style": null,
+          "blocks": [],
+          "defaultContent": ["p"]
+        },
+        {
+          "id": "cta",
+          "name": "Call to Action",
+          "selector": ".cta-section",
+          "style": "cta-section",
+          "blocks": [],
+          "defaultContent": ["h2", "p", "a.cta-button"]
+        }
+      ]
+    }
+  ]
+}

@@ -1,9 +1,16 @@
-.faq > div.faq-item {
-  border-bottom: 1px solid #e0e0e0;
+.faq {
+  margin-top: var(--gap-md);
+  border: 1px solid #d7d7d7;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-.faq > div.faq-item:first-child {
-  border-top: 1px solid #e0e0e0;
+.faq > div.faq-item {
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.faq > div.faq-item:last-child {
+  border-bottom: none;
 }
 
 .faq .faq-question {
@@ -11,43 +18,56 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding: 20px 0;
+  padding: 16px 24px;
   background: none;
   border: none;
   cursor: pointer;
-  font-family: var(--heading-font-family);
+  font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   color: var(--text-color);
   line-height: 1.4;
   gap: var(--gap-sm);
+  transition: background 0.2s, color 0.2s;
+}
+
+.faq .faq-question::after {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border-right: 2px solid var(--text-color);
+  border-bottom: 2px solid var(--text-color);
+  transform: rotate(45deg);
+  transition: transform 0.3s ease, border-color 0.2s;
+  margin-right: 4px;
 }
 
 .faq .faq-question:hover {
-  color: var(--primary-color);
+  background: #e6f2fa;
+  color: #0053e2;
+}
+
+.faq .faq-question:hover::after {
+  border-color: #0053e2;
 }
 
 .faq .faq-question:focus-visible {
   outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
+  outline-offset: -2px;
   border-radius: 4px;
 }
 
-.faq .faq-question::after {
-  content: '+';
-  font-size: 28px;
-  font-weight: 300;
-  line-height: 1;
-  flex-shrink: 0;
-  width: 28px;
-  text-align: center;
-  transition: transform 0.3s ease;
-  color: var(--primary-color);
+.faq .faq-item-active .faq-question {
+  background: #e6f2fa;
+  color: #0053e2;
 }
 
 .faq .faq-item-active .faq-question::after {
-  content: '\2212';
+  transform: rotate(-135deg);
+  border-color: #0053e2;
 }
 
 .faq .faq-answer {
@@ -61,9 +81,14 @@
 }
 
 .faq .faq-answer p {
-  padding: 0 0 20px;
+  padding: 0 24px 20px;
   color: var(--dark-color);
   font-size: var(--body-font-size-s);
   line-height: 1.7;
   margin: 0;
+}
+
+/* Search integration: hidden items */
+.faq .faq-item.faq-item-hidden {
+  display: none;
 }

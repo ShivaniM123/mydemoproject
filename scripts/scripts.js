@@ -119,6 +119,10 @@ function decorateButtons(main) {
  */
 // eslint-disable-next-line import/prefer-default-export
 export function decorateMain(main) {
+  // Remove page-level metadata block (processed server-side in production)
+  const metadataBlock = main.querySelector(':scope > .metadata');
+  if (metadataBlock) metadataBlock.remove();
+
   decorateIcons(main);
   buildAutoBlocks(main);
   decorateSections(main);
