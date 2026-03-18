@@ -336,6 +336,12 @@ main .section.light-blue {
   padding: var(--section-padding) 0;
 }
 
+/* CTA default content following a columns block — centered */
+main .section.columns-container > .default-content-wrapper {
+  text-align: center;
+  padding: 40px 24px 0;
+}
+
 /* generic section variants */
 main .section.light,
 main .section.highlight {
