@@ -454,6 +454,11 @@ main .section.faq-nav {
   background-color: var(--background-color);
 }
 
+/* Hide FAQ section headings — category tabs serve as labels */
+main .section.faq-container > .default-content-wrapper {
+  display: none;
+}
+
 /* Hidden FAQ sections (filtered by search or category tab) */
 main .section.faq-section-hidden,
 main .section.faq-category-filtered {
