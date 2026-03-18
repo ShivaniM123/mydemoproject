@@ -1,7 +1,34 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
+function decorateRewardsTable(block) {
+  const table = document.createElement('table');
+  const thead = document.createElement('thead');
+  const tbody = document.createElement('tbody');
+  const header = !block.classList.contains('no-header');
+
+  [...block.children].forEach((row, i) => {
+    const tr = document.createElement('tr');
+    [...row.children].forEach((cell) => {
+      const td = document.createElement(i === 0 && header ? 'th' : 'td');
+      if (i === 0) td.setAttribute('scope', 'column');
+      td.innerHTML = cell.innerHTML;
+      tr.append(td);
+    });
+    if (i === 0 && header) thead.append(tr);
+    else tbody.append(tr);
+  });
+  table.append(thead, tbody);
+  block.replaceChildren(table);
+}
+
 export default function decorate(block) {
-  /* change to ul, li */
+  /* rewards variant — comparison table layout */
+  if (block.classList.contains('rewards')) {
+    decorateRewardsTable(block);
+    return;
+  }
+
+  /* default cards — list layout */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
