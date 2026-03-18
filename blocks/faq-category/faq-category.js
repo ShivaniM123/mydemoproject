@@ -84,17 +84,19 @@ export default function decorate(block) {
   nav.append(list);
   block.replaceChildren(nav);
 
-  // Apply initial filter once FAQ sections exist in the DOM
-  const targetIds = categories.map((c) => c.targetId);
-  function applyCategoryFilter() {
-    const allExist = targetIds.every((id) => document.getElementById(id));
-    if (allExist) {
-      showCategory(activeCategory);
-    } else {
-      requestAnimationFrame(applyCategoryFilter);
-    }
+  // Re-apply filter whenever FAQ sections finish loading and become visible.
+  // Sections start hidden (display:none) and get display:null when loaded,
+  // so we watch for attribute changes on main to catch each section load.
+  const main = document.querySelector('main');
+  if (main) {
+    const observer = new MutationObserver(() => {
+      if (!isSearching) showCategory(activeCategory);
+    });
+    observer.observe(main, { attributes: true, attributeFilter: ['data-section-status'], subtree: true });
   }
-  applyCategoryFilter();
+
+  // Also apply immediately for any sections already loaded
+  showCategory(activeCategory);
 
   // Listen for search filter events
   document.addEventListener('faq-filter', (e) => {
