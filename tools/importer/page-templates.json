@@ -1,0 +1,76 @@
+{
+  "templates": [
+    {
+      "name": "rewards-page",
+      "urls": [
+        "https://www.sparkdriverapp.com/en_us/rewards.html"
+      ],
+      "description": "Spark Driver rewards program page with tier information and benefits",
+      "blocks": [
+        {
+          "name": "hero-rewards",
+          "instances": [
+            ".block-container-component.grid-box .bg-transparent .rte-styles.richtext.table-component.margin-bottom-0"
+          ]
+        },
+        {
+          "name": "table-rewards",
+          "instances": [
+            ".rewards-table-container"
+          ]
+        },
+        {
+          "name": "columns-info",
+          "instances": [
+            ".columns-new-component.col-new-6633"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": ".block-container-component.grid-box.classic.theme-blue:first-of-type",
+          "style": null,
+          "blocks": [
+            "hero-rewards"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Rewards Comparison Table",
+          "selector": ".block-container-component.full-width.classic.theme-blue",
+          "style": "light-blue",
+          "blocks": [
+            "table-rewards"
+          ],
+          "defaultContent": [
+            ".rte-styles.richtext.table-component.margin-bottom-50 > p"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Qualification Information",
+          "selector": ".boxed-wrapper.mobile-reverse",
+          "style": null,
+          "blocks": [
+            "columns-info"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-4",
+          "name": "Call to Action",
+          "selector": ".block-container-component.grid-box.classic.theme-blue:last-of-type",
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            ".rte-styles.richtext.table-component.margin-bottom-30 > h2",
+            ".button-component-wrapper.button-glms-alignment.center"
+          ]
+        }
+      ]
+    }
+  ]
+}

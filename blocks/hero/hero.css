@@ -135,3 +135,41 @@
     font-size: 56px;
   }
 }
+
+
+/* stylelint-disable no-descending-specificity -- Rewards variant */
+.hero.rewards {
+  text-align: center;
+  padding: 48px 24px 40px;
+  min-height: auto;
+}
+
+.hero.rewards > div {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero.rewards h1 {
+  font-size: var(--heading-font-size-xxl);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--text-color);
+  margin: 0 0 16px;
+}
+
+.hero.rewards h1 strong {
+  font-weight: 500;
+}
+
+.hero.rewards p {
+  font-size: var(--body-font-size-m);
+  line-height: 1.5;
+  color: var(--text-color);
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  .hero.rewards {
+    padding: 64px 32px 48px;
+  }
+}

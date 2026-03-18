@@ -1,0 +1,13 @@
+{
+  "status": "success",
+  "url": "https://www.sparkdriverapp.com/en_us/rewards.html",
+  "path": "en-us/rewards",
+  "timestamp": "2026-03-18T09:38:47.699Z",
+  "title": "Rewards program | Spark Driver™ app",
+  "template": "rewards-page",
+  "blocks": [
+    "hero-rewards",
+    "table-rewards",
+    "columns-info"
+  ]
+}
