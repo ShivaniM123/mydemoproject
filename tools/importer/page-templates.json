@@ -71,6 +71,85 @@
           ]
         }
       ]
+    },
+    {
+      "name": "offers-page-es",
+      "urls": [
+        "https://www.sparkdriverapp.com/es_us/offers.html#offer-types"
+      ],
+      "description": "Spanish version of the Spark Driver offers page with offer types, additional delivery products, and CTA - same layout as en_us/offers.html",
+      "blocks": [
+        {
+          "name": "hero",
+          "instances": [
+            ".columns-new-component.col-new-two#centered-split"
+          ]
+        },
+        {
+          "name": "offer-cards",
+          "instances": [
+            ".columns-new-component.col-new-three"
+          ]
+        },
+        {
+          "name": "cta",
+          "instances": [
+            ".block-container-component.grid-box.classic.theme-blue"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section-1",
+          "name": "Hero",
+          "selector": ".columns-new-component.col-new-two#centered-split",
+          "style": null,
+          "blocks": [
+            "hero"
+          ],
+          "defaultContent": []
+        },
+        {
+          "id": "section-2",
+          "name": "Offer Types",
+          "selector": ".block-container-component.full-width.classic.theme-blue",
+          "style": "offers-light",
+          "blocks": [
+            "offer-cards"
+          ],
+          "defaultContent": [
+            ".boxed-wrapper .rte-styles.table-component.margin-bottom-50 h2",
+            ".boxed-wrapper .rte-styles.table-component.margin-bottom-50 p"
+          ]
+        },
+        {
+          "id": "section-3",
+          "name": "Additional Products",
+          "selector": [
+            ".rte-styles.richtext.table-component.margin-bottom-30",
+            ".icon-list-container.earnings",
+            ".button-component-wrapper.button-glms-alignment.center"
+          ],
+          "style": "promo-banner",
+          "blocks": [],
+          "defaultContent": [
+            ".rte-styles.richtext.table-component.margin-bottom-30 h2",
+            ".rte-styles.richtext.table-component.margin-bottom-30 p",
+            ".icon-list-container.earnings ul",
+            ".button-component-wrapper.button-glms-alignment.center .button-secondary"
+          ]
+        },
+        {
+          "id": "section-4",
+          "name": "Call to Action",
+          "selector": ".block-container-component.grid-box.classic.theme-blue",
+          "style": "cta-section",
+          "blocks": [
+            "cta"
+          ],
+          "defaultContent": []
+        }
+      ]
     }
   ]
 }

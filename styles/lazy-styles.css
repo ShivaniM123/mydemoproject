@@ -44,6 +44,20 @@ main .section.promo-banner .button-wrapper {
   text-align: center;
 }
 
+/* Override primary button in promo-banner to outlined style */
+main .section.promo-banner .button.primary {
+  border-color: var(--primary-color);
+  background-color: transparent;
+  color: var(--text-color-dark);
+}
+
+main .section.promo-banner .button.primary:hover,
+main .section.promo-banner .button.primary:focus-visible {
+  background-color: var(--light-color);
+  border-color: var(--link-hover-color);
+  color: var(--primary-color);
+}
+
 /* Light offers section */
 main .section.offers-light {
   background-color: var(--section-bg-light);

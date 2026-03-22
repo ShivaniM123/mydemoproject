@@ -10,15 +10,6 @@
 .offer-cards ul > li {
   text-align: center;
   padding: var(--gap-md);
-  border-radius: var(--border-radius);
-  background-color: var(--background-color);
-  box-shadow: var(--card-shadow);
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.offer-cards ul > li:hover {
-  box-shadow: var(--card-shadow-hover);
-  transform: translateY(-2px);
 }
 
 .offer-cards .offer-cards-image {
