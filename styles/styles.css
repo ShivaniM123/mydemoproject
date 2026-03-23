@@ -344,6 +344,13 @@ main .section.light-blue > div {
   max-width: 790px;
 }
 
+/* Rewards page — columns-info section: full width, left-aligned like original */
+main .section.columns-container > div {
+  max-width: unset;
+  margin: 0;
+  padding: 0 4%;
+}
+
 /* CTA default content following a columns block — centered */
 main .section.columns-container > .default-content-wrapper {
   text-align: center;
