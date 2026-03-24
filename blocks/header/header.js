@@ -294,6 +294,23 @@ export default async function decorate(block) {
   nav.textContent = '';
   nav.appendChild(navContent);
 
+  // Desktop: hover to open/close dropdowns
+  nav.querySelectorAll('.nav-sections .nav-drop').forEach((drop) => {
+    drop.addEventListener('mouseenter', () => {
+      if (isDesktop.matches) {
+        closeAllDropdowns(nav);
+        drop.classList.add('opened');
+        drop.setAttribute('aria-expanded', 'true');
+      }
+    });
+    drop.addEventListener('mouseleave', () => {
+      if (isDesktop.matches) {
+        drop.classList.remove('opened');
+        drop.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
   // Close dropdowns on outside click
   document.addEventListener('click', (e) => {
     if (!nav.contains(e.target)) {
