@@ -1,129 +1,97 @@
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
-// media query match that indicates mobile/tablet width
-const isDesktop = window.matchMedia('(min-width: 900px)');
+const isDesktop = window.matchMedia('(min-width: 1025px)');
 
-function closeOnEscape(e) {
-  if (e.code === 'Escape') {
-    const nav = document.getElementById('nav');
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections);
-      navSectionExpanded.focus();
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections);
-      nav.querySelector('button').focus();
-    }
-  }
-}
-
-function closeOnFocusLost(e) {
-  const nav = e.currentTarget;
-  if (!nav.contains(e.relatedTarget)) {
-    const navSections = nav.querySelector('.nav-sections');
-    if (!navSections) return;
-    const navSectionExpanded = navSections.querySelector('[aria-expanded="true"]');
-    if (navSectionExpanded && isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleAllNavSections(navSections, false);
-    } else if (!isDesktop.matches) {
-      // eslint-disable-next-line no-use-before-define
-      toggleMenu(nav, navSections, false);
-    }
-  }
-}
-
-function openOnKeydown(e) {
-  const focused = document.activeElement;
-  const isNavDrop = focused.className === 'nav-drop';
-  if (isNavDrop && (e.code === 'Enter' || e.code === 'Space')) {
-    const dropExpanded = focused.getAttribute('aria-expanded') === 'true';
-    // eslint-disable-next-line no-use-before-define
-    toggleAllNavSections(focused.closest('.nav-sections'));
-    focused.setAttribute('aria-expanded', dropExpanded ? 'false' : 'true');
-  }
-}
-
-function focusNavSection() {
-  document.activeElement.addEventListener('keydown', openOnKeydown);
-}
-
-/**
- * Toggles all nav sections
- * @param {Element} sections The container element
- * @param {Boolean} expanded Whether the element should be expanded or collapsed
- */
-function toggleAllNavSections(sections, expanded = false) {
-  if (!sections) return;
-  sections.querySelectorAll('.nav-sections .default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
+function closeAllDropdowns(nav) {
+  nav.querySelectorAll('.nav-sections .nav-drop').forEach((drop) => {
+    drop.classList.remove('opened');
+    drop.setAttribute('aria-expanded', 'false');
   });
 }
 
-/**
- * Toggles the entire nav
- * @param {Element} nav The container element
- * @param {Element} navSections The nav sections within the container element
- * @param {*} forceExpanded Optional param to force nav expand behavior when not null
- */
-function toggleMenu(nav, navSections, forceExpanded = null) {
-  const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
-  const button = nav.querySelector('.nav-hamburger button');
-  document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
-  nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
-  // enable nav dropdown keyboard accessibility
-  if (navSections) {
-    const navDrops = navSections.querySelectorAll('.nav-drop');
-    if (isDesktop.matches) {
-      navDrops.forEach((drop) => {
-        if (!drop.hasAttribute('tabindex')) {
-          drop.setAttribute('tabindex', 0);
-          drop.addEventListener('focus', focusNavSection);
-        }
-      });
-    } else {
-      navDrops.forEach((drop) => {
-        drop.removeAttribute('tabindex');
-        drop.removeEventListener('focus', focusNavSection);
-      });
-    }
-  }
-
-  // enable menu collapse on escape keypress
-  if (!expanded || isDesktop.matches) {
-    // collapse menu on escape press
-    window.addEventListener('keydown', closeOnEscape);
-    // collapse menu on focus lost
-    nav.addEventListener('focusout', closeOnFocusLost);
-  } else {
-    window.removeEventListener('keydown', closeOnEscape);
-    nav.removeEventListener('focusout', closeOnFocusLost);
+function toggleDropdown(drop, nav) {
+  const wasOpen = drop.classList.contains('opened');
+  closeAllDropdowns(nav);
+  if (!wasOpen) {
+    drop.classList.add('opened');
+    drop.setAttribute('aria-expanded', 'true');
   }
 }
 
-/**
- * loads and decorates the header, mainly the nav
- * @param {Element} block The header block element
- */
-export default async function decorate(block) {
-  // load nav as fragment
-  const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+function toggleMobileMenu(nav) {
+  const expanded = nav.getAttribute('aria-expanded') === 'true';
+  const linkContainer = nav.querySelector('.nav-link-container');
+  const trigger = nav.querySelector('.nav-mobile-trigger');
 
-  // decorate nav DOM
-  block.textContent = '';
-  const nav = document.createElement('nav');
-  nav.id = 'nav';
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  if (expanded) {
+    nav.setAttribute('aria-expanded', 'false');
+    linkContainer.classList.remove('opened');
+    trigger.classList.remove('activated');
+    document.body.style.overflowY = '';
+    nav.classList.remove('fixed');
+  } else {
+    nav.setAttribute('aria-expanded', 'true');
+    linkContainer.classList.add('opened');
+    trigger.classList.add('activated');
+    document.body.style.overflowY = 'hidden';
+    nav.classList.add('fixed');
+  }
+  closeAllDropdowns(nav);
+}
 
+function buildChevron() {
+  const span = document.createElement('span');
+  span.className = 'chevron-icon';
+  span.innerHTML = '<img src="/icons/chevron-down.svg" alt="" aria-hidden="true">';
+  return span;
+}
+
+function buildDropdownItem(label, children) {
+  const li = document.createElement('li');
+  li.classList.add('nav-drop');
+  li.setAttribute('aria-expanded', 'false');
+
+  const trigger = document.createElement('a');
+  trigger.href = '#';
+  trigger.className = 'dropdown-trigger';
+  trigger.setAttribute('role', 'button');
+  trigger.setAttribute('aria-expanded', 'false');
+  trigger.textContent = label;
+  trigger.appendChild(buildChevron());
+  li.appendChild(trigger);
+
+  const childUl = document.createElement('ul');
+  childUl.className = 'nav-child-list';
+  children.forEach(({ text, href }) => {
+    const childLi = document.createElement('li');
+    const a = document.createElement('a');
+    a.href = href;
+    a.textContent = text;
+    childLi.appendChild(a);
+    childUl.appendChild(childLi);
+  });
+  li.appendChild(childUl);
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleDropdown(li, li.closest('nav'));
+  });
+
+  return li;
+}
+
+function buildLinkItem(label, href) {
+  const li = document.createElement('li');
+  const a = document.createElement('a');
+  a.href = href;
+  a.textContent = label;
+  li.appendChild(a);
+  return li;
+}
+
+function decorateNavFromFragment(nav) {
   const classes = ['brand', 'sections', 'tools'];
   classes.forEach((c, i) => {
     const section = nav.children[i];
@@ -131,38 +99,209 @@ export default async function decorate(block) {
   });
 
   const navBrand = nav.querySelector('.nav-brand');
-  const brandLink = navBrand.querySelector('.button');
-  if (brandLink) {
-    brandLink.className = '';
-    brandLink.closest('.button-container').className = '';
+  if (navBrand) {
+    const brandLink = navBrand.querySelector('a');
+    if (brandLink) {
+      brandLink.className = '';
+      brandLink.setAttribute('aria-label', 'Spark Driver home');
+      const p = brandLink.closest('p');
+      if (p) p.className = '';
+    }
   }
 
   const navSections = nav.querySelector('.nav-sections');
   if (navSections) {
-    navSections.querySelectorAll(':scope .default-content-wrapper > ul > li').forEach((navSection) => {
-      if (navSection.querySelector('ul')) navSection.classList.add('nav-drop');
-      navSection.addEventListener('click', () => {
-        if (isDesktop.matches) {
-          const expanded = navSection.getAttribute('aria-expanded') === 'true';
-          toggleAllNavSections(navSections);
-          navSection.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+    const ul = navSections.querySelector(':scope .default-content-wrapper > ul');
+    if (ul) {
+      ul.querySelectorAll(':scope > li').forEach((li) => {
+        const subUl = li.querySelector('ul');
+        if (subUl) {
+          li.classList.add('nav-drop');
+          li.setAttribute('aria-expanded', 'false');
+
+          const labelText = li.childNodes[0].textContent.trim();
+
+          const trigger = document.createElement('a');
+          trigger.href = '#';
+          trigger.className = 'dropdown-trigger';
+          trigger.setAttribute('role', 'button');
+          trigger.setAttribute('aria-expanded', 'false');
+          trigger.textContent = labelText;
+          trigger.appendChild(buildChevron());
+
+          li.childNodes[0].remove();
+          li.prepend(trigger);
+          subUl.classList.add('nav-child-list');
+
+          trigger.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleDropdown(li, nav);
+          });
         }
       });
-    });
+    }
   }
 
-  // hamburger for mobile
-  const hamburger = document.createElement('div');
-  hamburger.classList.add('nav-hamburger');
-  hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
-      <span class="nav-hamburger-icon"></span>
-    </button>`;
-  hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
-  nav.prepend(hamburger);
+  return { navBrand, navSections };
+}
+
+function buildInlineNav() {
+  // Brand
+  const brand = document.createElement('div');
+  brand.className = 'nav-brand';
+  const brandP = document.createElement('p');
+  const brandLink = document.createElement('a');
+  brandLink.href = '/en_us';
+  brandLink.setAttribute('aria-label', 'Spark Driver home');
+  const logo = document.createElement('img');
+  logo.src = '/icons/spark-driver-logo.svg';
+  logo.alt = 'Spark Driver';
+  brandLink.appendChild(logo);
+  brandP.appendChild(brandLink);
+  brand.appendChild(brandP);
+
+  // Sections
+  const sections = document.createElement('div');
+  sections.className = 'nav-sections';
+  const ul = document.createElement('ul');
+
+  ul.appendChild(buildDropdownItem('Earnings', [
+    { text: 'Trip earnings', href: '/en_us/earnings#trip-earnings' },
+    { text: 'Additional earnings', href: '/en_us/earnings#additional-earnings' },
+    { text: 'Get your earnings', href: '/en_us/earnings#get-your-earnings' },
+  ]));
+
+  ul.appendChild(buildDropdownItem('Offers', [
+    { text: 'Offer types', href: '/en_us/offers#offer-types' },
+    { text: 'Additional delivery types', href: '/en_us/offers#additional-delivery-types' },
+  ]));
+
+  ul.appendChild(buildDropdownItem('Rewards', [
+    { text: 'Spark Driver Rewards Program', href: '/en_us/rewards#sparkdriver-rewards-program' },
+    { text: 'Qualifications', href: '/en_us/rewards#qualifications' },
+  ]));
+
+  ul.appendChild(buildLinkItem('Blog', '/en_us/blog'));
+  ul.appendChild(buildLinkItem('FAQ', '/en_us/faqs'));
+
+  sections.appendChild(ul);
+
+  return { brand, sections };
+}
+
+/**
+ * loads and decorates the header, mainly the nav
+ * @param {Element} block The header block element
+ */
+export default async function decorate(block) {
+  // Try to load nav as fragment
+  const navMeta = getMetadata('nav');
+  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
+  const fragment = await loadFragment(navPath);
+
+  block.textContent = '';
+  const nav = document.createElement('nav');
+  nav.id = 'nav';
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+
+  let navBrand;
+  let navSections;
+
+  if (fragment) {
+    while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+    ({ navBrand, navSections } = decorateNavFromFragment(nav));
+  } else {
+    // Fallback: build nav inline
+    const inline = buildInlineNav();
+    navBrand = inline.brand;
+    navSections = inline.sections;
+  }
+
+  // Build the nav structure
+  const navContent = document.createElement('div');
+  navContent.className = 'nav-content';
+  navContent.appendChild(navBrand);
+
+  // Link container (wraps sections + utility for mobile slide)
+  const linkContainer = document.createElement('div');
+  linkContainer.className = 'nav-link-container';
+  linkContainer.appendChild(navSections);
+
+  // Utility links (login) - visible in mobile menu
+  const mobileTools = document.createElement('div');
+  mobileTools.className = 'nav-mobile-tools';
+
+  const loginLink = document.createElement('a');
+  loginLink.href = 'https://www.sparkdriverapp.com/enroll';
+  loginLink.className = 'nav-login-link';
+  loginLink.textContent = 'Log in';
+
+  const utilityDiv = document.createElement('div');
+  utilityDiv.className = 'nav-utility';
+  utilityDiv.appendChild(loginLink);
+  mobileTools.appendChild(utilityDiv);
+
+  linkContainer.appendChild(mobileTools);
+  navContent.appendChild(linkContainer);
+
+  // Desktop-only login (separate from mobile tools)
+  const desktopLogin = document.createElement('a');
+  desktopLogin.href = 'https://www.sparkdriverapp.com/enroll';
+  desktopLogin.className = 'nav-login-link nav-desktop-only';
+  desktopLogin.textContent = 'Log in';
+  navContent.appendChild(desktopLogin);
+
+  // CTA button
+  const ctaBtn = document.createElement('a');
+  ctaBtn.href = 'https://www.sparkdriverapp.com/enroll';
+  ctaBtn.className = 'nav-cta-button';
+  ctaBtn.textContent = 'Sign up';
+  navContent.appendChild(ctaBtn);
+
+  // Mobile trigger (hamburger)
+  const mobileTrigger = document.createElement('a');
+  mobileTrigger.className = 'nav-mobile-trigger';
+  mobileTrigger.setAttribute('role', 'button');
+  mobileTrigger.setAttribute('aria-controls', 'nav');
+  mobileTrigger.setAttribute('aria-label', 'Open navigation');
+  mobileTrigger.innerHTML = `
+    <div class="trigger-line"></div>
+    <div class="trigger-line"></div>
+    <div class="trigger-line"></div>
+  `;
+  mobileTrigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleMobileMenu(nav);
+  });
+  navContent.appendChild(mobileTrigger);
+
+  nav.textContent = '';
+  nav.appendChild(navContent);
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target)) {
+      closeAllDropdowns(nav);
+    }
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllDropdowns(nav);
+      if (nav.getAttribute('aria-expanded') === 'true') {
+        toggleMobileMenu(nav);
+      }
+    }
+  });
+
+  // Handle resize
+  isDesktop.addEventListener('change', () => {
+    if (isDesktop.matches && nav.getAttribute('aria-expanded') === 'true') {
+      toggleMobileMenu(nav);
+    }
+  });
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';
