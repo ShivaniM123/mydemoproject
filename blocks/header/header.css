@@ -78,6 +78,7 @@ header nav .nav-link-container {
   transition: left 0.25s ease;
   z-index: 5;
   overflow: hidden scroll;
+  box-sizing: border-box;
 }
 
 header nav .nav-link-container.opened {
@@ -145,12 +146,13 @@ header nav .nav-sections .default-content-wrapper > ul > li {
 header nav .nav-sections .dropdown-trigger {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   color: #424242;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
+  width: 100%;
 }
 
 header nav .nav-sections .dropdown-trigger:hover {
@@ -158,12 +160,17 @@ header nav .nav-sections .dropdown-trigger:hover {
 }
 
 /* plain nav links (Blog, FAQ) */
+/* stylelint-disable no-descending-specificity */
 header nav .nav-sections > ul > li > a:not(.dropdown-trigger),
-header nav .nav-sections .default-content-wrapper > ul > li > a:not(.dropdown-trigger) {
+header nav .nav-sections .default-content-wrapper > ul > li > a:not(.dropdown-trigger),
+header nav .nav-sections > ul > li > p > a,
+header nav .nav-sections .default-content-wrapper > ul > li > p > a {
   color: #424242;
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
 }
+
+/* stylelint-enable no-descending-specificity */
 
 /* stylelint-disable no-descending-specificity */
 header nav .nav-sections > ul > li > a:not(.dropdown-trigger):hover,
@@ -188,7 +195,7 @@ header nav .nav-lang-trigger {
   gap: 6px;
   color: var(--text-color);
   font-size: 24px;
-  font-weight: 300;
+  font-weight: 400;
   text-decoration: none;
   cursor: pointer;
 }
@@ -261,8 +268,9 @@ header nav .nav-lang-check img {
 header nav .chevron-icon {
   display: inline-block;
   width: 14px;
-  margin-left: 4px;
+  margin-left: auto;
   transition: transform 0.25s;
+  flex-shrink: 0;
 }
 
 header nav .chevron-icon img {
@@ -421,6 +429,13 @@ header nav .nav-mobile-tools {
     color: var(--text-color);
     font-size: 18px;
     font-weight: 400;
+    justify-content: flex-start;
+    width: auto;
+  }
+
+  /* chevron back to inline on desktop */
+  header nav .chevron-icon {
+    margin-left: 4px;
   }
 
   /* plain nav links */

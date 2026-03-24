@@ -311,12 +311,12 @@ export default async function decorate(block) {
   utilityDiv.appendChild(loginLink);
   mobileTools.appendChild(utilityDiv);
 
-  linkContainer.appendChild(mobileTools);
-  navContent.appendChild(linkContainer);
-
-  // Language selector
+  // Language selector (before login in mobile menu)
   const langSelector = buildLanguageSelector();
   linkContainer.appendChild(langSelector);
+
+  linkContainer.appendChild(mobileTools);
+  navContent.appendChild(linkContainer);
 
   // Desktop-only login (separate from mobile tools)
   const desktopLogin = document.createElement('a');
