@@ -82,6 +82,60 @@ function buildDropdownItem(label, children) {
   return li;
 }
 
+function buildLanguageSelector() {
+  const li = document.createElement('li');
+  li.className = 'nav-lang-selector';
+  li.setAttribute('aria-expanded', 'false');
+
+  const trigger = document.createElement('a');
+  trigger.href = '#';
+  trigger.className = 'nav-lang-trigger';
+  trigger.setAttribute('role', 'button');
+  trigger.setAttribute('aria-expanded', 'false');
+  const iconSpan = document.createElement('span');
+  iconSpan.className = 'nav-lang-icon';
+  iconSpan.innerHTML = '<img src="/icons/globe.svg" alt="" aria-hidden="true">';
+  trigger.appendChild(iconSpan);
+  trigger.appendChild(document.createTextNode('EN'));
+  li.appendChild(trigger);
+
+  const langList = document.createElement('ul');
+  langList.className = 'nav-lang-list';
+
+  const enLi = document.createElement('li');
+  const enA = document.createElement('a');
+  enA.href = '/en_us';
+  enA.dataset.language = 'en_us';
+  enA.textContent = 'English';
+  const checkSpan = document.createElement('span');
+  checkSpan.className = 'nav-lang-check';
+  checkSpan.innerHTML = '<img src="/icons/check.svg" alt="" aria-hidden="true">';
+  enA.appendChild(checkSpan);
+  enLi.appendChild(enA);
+  langList.appendChild(enLi);
+
+  const esLi = document.createElement('li');
+  const esA = document.createElement('a');
+  esA.href = '/es_us';
+  esA.dataset.language = 'es_us';
+  esA.textContent = 'Español';
+  esLi.appendChild(esA);
+  langList.appendChild(esLi);
+
+  li.appendChild(langList);
+
+  trigger.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const open = li.classList.contains('opened');
+    li.classList.toggle('opened', !open);
+    li.setAttribute('aria-expanded', String(!open));
+    trigger.setAttribute('aria-expanded', String(!open));
+  });
+
+  return li;
+}
+
 function buildLinkItem(label, href) {
   const li = document.createElement('li');
   const a = document.createElement('a');
@@ -260,6 +314,10 @@ export default async function decorate(block) {
   linkContainer.appendChild(mobileTools);
   navContent.appendChild(linkContainer);
 
+  // Language selector
+  const langSelector = buildLanguageSelector();
+  linkContainer.appendChild(langSelector);
+
   // Desktop-only login (separate from mobile tools)
   const desktopLogin = document.createElement('a');
   desktopLogin.href = 'https://www.sparkdriverapp.com/enroll';
@@ -311,10 +369,32 @@ export default async function decorate(block) {
     });
   });
 
+  // Desktop: hover to open/close language selector
+  const langDrop = nav.querySelector('.nav-lang-selector');
+  if (langDrop) {
+    langDrop.addEventListener('mouseenter', () => {
+      if (isDesktop.matches) {
+        langDrop.classList.add('opened');
+        langDrop.setAttribute('aria-expanded', 'true');
+      }
+    });
+    langDrop.addEventListener('mouseleave', () => {
+      if (isDesktop.matches) {
+        langDrop.classList.remove('opened');
+        langDrop.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
   // Close dropdowns on outside click
   document.addEventListener('click', (e) => {
     if (!nav.contains(e.target)) {
       closeAllDropdowns(nav);
+      const lang = nav.querySelector('.nav-lang-selector');
+      if (lang) {
+        lang.classList.remove('opened');
+        lang.setAttribute('aria-expanded', 'false');
+      }
     }
   });
 
@@ -322,6 +402,11 @@ export default async function decorate(block) {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       closeAllDropdowns(nav);
+      const lang = nav.querySelector('.nav-lang-selector');
+      if (lang) {
+        lang.classList.remove('opened');
+        lang.setAttribute('aria-expanded', 'false');
+      }
       if (nav.getAttribute('aria-expanded') === 'true') {
         toggleMobileMenu(nav);
       }
