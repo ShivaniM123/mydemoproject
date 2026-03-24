@@ -119,7 +119,23 @@ function decorateNavFromFragment(nav) {
           li.classList.add('nav-drop');
           li.setAttribute('aria-expanded', 'false');
 
-          const labelText = li.childNodes[0].textContent.trim();
+          // Find label text - CMS may wrap it in <p> or leave as text node
+          let labelText = '';
+          let labelNode = null;
+          [...li.childNodes].some((child) => {
+            if (child.nodeType === Node.TEXT_NODE && child.textContent.trim()) {
+              labelText = child.textContent.trim();
+              labelNode = child;
+              return true;
+            }
+            if (child.tagName === 'P' && !child.querySelector('a')) {
+              labelText = child.textContent.trim();
+              labelNode = child;
+              return true;
+            }
+            return false;
+          });
+          if (labelNode) labelNode.remove();
 
           const trigger = document.createElement('a');
           trigger.href = '#';
@@ -129,7 +145,6 @@ function decorateNavFromFragment(nav) {
           trigger.textContent = labelText;
           trigger.appendChild(buildChevron());
 
-          li.childNodes[0].remove();
           li.prepend(trigger);
           subUl.classList.add('nav-child-list');
 
