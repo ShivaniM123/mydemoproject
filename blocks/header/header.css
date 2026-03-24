@@ -360,6 +360,10 @@ header nav .nav-login-link {
   font-weight: 400;
 }
 
+header nav .nav-login-link:hover {
+  text-decoration: underline;
+}
+
 /* desktop-only login link hidden on mobile */
 header nav .nav-desktop-only {
   display: none;
