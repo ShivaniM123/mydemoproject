@@ -439,12 +439,17 @@ header nav .nav-mobile-tools {
   }
 
   /* plain nav links */
+  /* stylelint-disable no-descending-specificity */
   header nav .nav-sections > ul > li > a:not(.dropdown-trigger),
-  header nav .nav-sections .default-content-wrapper > ul > li > a:not(.dropdown-trigger) {
+  header nav .nav-sections .default-content-wrapper > ul > li > a:not(.dropdown-trigger),
+  header nav .nav-sections > ul > li > p > a,
+  header nav .nav-sections .default-content-wrapper > ul > li > p > a {
     color: var(--text-color);
     font-size: 18px;
     font-weight: 400;
   }
+
+  /* stylelint-enable no-descending-specificity */
 
   /* child list desktop overrides (selectors target different elements than nav-sections li) */
 
