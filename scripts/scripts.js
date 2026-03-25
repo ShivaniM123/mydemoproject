@@ -114,6 +114,21 @@ function decorateButtons(main) {
 }
 
 /**
+ * Appends the page H1 text to the breadcrumb paragraph dynamically.
+ * Breadcrumb is the first <p> directly before the <h1> that contains links with " > ".
+ * @param {Element} main The main container element
+ */
+function decorateBreadcrumb(main) {
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const prev = h1.previousElementSibling;
+  if (prev?.tagName === 'P' && prev.querySelector('a') && prev.textContent.includes('>')) {
+    prev.classList.add('breadcrumb');
+    prev.append(` > ${h1.textContent}`);
+  }
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -124,6 +139,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateBreadcrumb(main);
 }
 
 /**
