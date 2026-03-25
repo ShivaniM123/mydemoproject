@@ -125,6 +125,9 @@ function decorateBreadcrumb(main) {
   if (prev?.tagName === 'P' && prev.querySelector('a') && prev.textContent.includes('>')) {
     prev.classList.add('breadcrumb');
     prev.append(` > ${h1.textContent}`);
+    // Move breadcrumb before the wrapper so it stays full-width
+    const wrapper = prev.closest('.default-content-wrapper');
+    if (wrapper) wrapper.before(prev);
   }
 }
 

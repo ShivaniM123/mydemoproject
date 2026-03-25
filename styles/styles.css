@@ -363,14 +363,20 @@ body.blog-article main > .section > .default-content-wrapper {
   margin: 0 auto;
 }
 
-/* blog-article breadcrumb — black links, 14px, matching original */
+/* blog-article breadcrumb — full width, left-aligned with section padding */
 body.blog-article .breadcrumb {
   font-size: 14px;
   color: #000;
+  padding: 0 32px;
 }
 
 body.blog-article .breadcrumb a {
   color: #000;
+}
+
+/* blog-article images fill the full content width */
+body.blog-article .default-content-wrapper img {
+  width: 100%;
 }
 
 /* blog-article metadata bar — SPOTLIGHT pill + date + read time */
