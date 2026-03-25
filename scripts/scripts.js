@@ -149,6 +149,10 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+  // Apply blog-article template class based on URL path
+  if (window.location.pathname.match(/^\/blog\/.+/)) {
+    document.body.classList.add('blog-article');
+  }
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);

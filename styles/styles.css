@@ -357,6 +357,12 @@ main .section.columns-container > .default-content-wrapper {
   padding: 40px 24px 0;
 }
 
+/* blog-article template — narrow centered content like original (790px) */
+body.blog-article main > .section > .default-content-wrapper {
+  max-width: 790px;
+  margin: 0 auto;
+}
+
 /* generic section variants */
 main .section.light,
 main .section.highlight {
