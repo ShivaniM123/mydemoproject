@@ -363,10 +363,12 @@ body.blog-article main > .section > .default-content-wrapper {
   margin: 0 auto;
 }
 
-/* blog-article breadcrumb — full width, left-aligned with section padding */
+/* blog-article breadcrumb — aligned with header logo via same max-width/padding */
 body.blog-article .breadcrumb {
   font-size: 14px;
   color: #000;
+  max-width: 1200px;
+  margin: 0.8em auto 0.25em;
   padding: 0 32px;
 }
 
@@ -401,7 +403,7 @@ body.blog-article .article-meta .tag {
 
 body.blog-article .article-meta span:not(.tag) {
   padding-left: 8px;
-  border-left: 1px solid var(--border-color);
+  border-left: 1px solid var(--text-color);
 }
 
 body.blog-article .article-meta span:not(.tag):first-of-type {
