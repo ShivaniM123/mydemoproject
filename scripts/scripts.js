@@ -129,6 +129,28 @@ function decorateBreadcrumb(main) {
 }
 
 /**
+ * Decorates article metadata paragraph (e.g. "SPOTLIGHT | December 18, 2024 | 2 min. read")
+ * into structured spans for styling.
+ * @param {Element} main The main container element
+ */
+function decorateArticleMeta(main) {
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const next = h1.nextElementSibling;
+  if (!next || next.tagName !== 'P' || !next.textContent.includes('|')) return;
+  const parts = next.textContent.split('|').map((s) => s.trim());
+  if (parts.length < 2) return;
+  next.classList.add('article-meta');
+  next.textContent = '';
+  parts.forEach((part, i) => {
+    const span = document.createElement('span');
+    span.textContent = part;
+    if (i === 0) span.classList.add('tag');
+    next.append(span);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -140,6 +162,7 @@ export function decorateMain(main) {
   decorateBlocks(main);
   decorateButtons(main);
   decorateBreadcrumb(main);
+  decorateArticleMeta(main);
 }
 
 /**

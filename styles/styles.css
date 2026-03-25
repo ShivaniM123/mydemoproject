@@ -363,6 +363,46 @@ body.blog-article main > .section > .default-content-wrapper {
   margin: 0 auto;
 }
 
+/* blog-article breadcrumb — black links, 14px, matching original */
+body.blog-article .breadcrumb {
+  font-size: 14px;
+  color: #000;
+}
+
+body.blog-article .breadcrumb a {
+  color: #000;
+}
+
+/* blog-article metadata bar — SPOTLIGHT pill + date + read time */
+body.blog-article .article-meta {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  font-size: 14px;
+  color: var(--text-color);
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+body.blog-article .article-meta .tag {
+  background-color: #e7ecf4;
+  color: var(--primary-color);
+  font-size: 12px;
+  padding: 5px 8px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+body.blog-article .article-meta span:not(.tag) {
+  padding-left: 8px;
+  border-left: 1px solid var(--border-color);
+}
+
+body.blog-article .article-meta span:not(.tag):first-of-type {
+  border-left: none;
+  padding-left: 0;
+}
+
 /* generic section variants */
 main .section.light,
 main .section.highlight {
