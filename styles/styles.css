@@ -402,7 +402,7 @@ body.blog-article .article-meta .tag {
 }
 
 body.blog-article .article-meta span:not(.tag) {
-  padding-left: 8px;
+  padding: 0 8px;
   border-left: 1px solid var(--text-color);
 }
 

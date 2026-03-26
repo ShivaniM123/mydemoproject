@@ -176,7 +176,7 @@ async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
   // Apply blog-article template class based on URL path
-  if (window.location.pathname.match(/^\/blog\/.+/)) {
+  if (window.location.pathname.match(/^(\/content)?\/blog\/.+/)) {
     document.body.classList.add('blog-article');
   }
   const main = doc.querySelector('main');
