@@ -1,3 +1,15 @@
-Forbidden
-
-1774328674-96713689597-119345201536-84762217
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #3b4459;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 2px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" d="M11,1c2.5,2.74,3.92,6.29,4,10-.08,3.71-1.5,7.26-4,10M11,1c-2.5,2.74-3.92,6.29-4,10,.08,3.71,1.5,7.26,4,10M11,1C5.48,1,1,5.48,1,11s4.48,10,10,10M11,1c5.52,0,10,4.48,10,10s-4.48,10-10,10M1.5,8h19M1.5,14h19"/>
+</svg>
