@@ -577,7 +577,6 @@ header nav .nav-mobile-tools {
   }
 }
 
-/* Tablet: 601px - 1024px */
 @media (width >= 601px) and (width <= 1024px) {
   header nav .nav-link-container {
     width: 50vw;
