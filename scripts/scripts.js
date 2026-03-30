@@ -114,6 +114,46 @@ function decorateButtons(main) {
 }
 
 /**
+ * Appends the page H1 text to the breadcrumb paragraph dynamically.
+ * Breadcrumb is the first <p> directly before the <h1> that contains links with " > ".
+ * @param {Element} main The main container element
+ */
+function decorateBreadcrumb(main) {
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const prev = h1.previousElementSibling;
+  if (prev?.tagName === 'P' && prev.querySelector('a') && prev.textContent.includes('>')) {
+    prev.classList.add('breadcrumb');
+    prev.append(` > ${h1.textContent}`);
+    // Move breadcrumb before the wrapper so it stays full-width
+    const wrapper = prev.closest('.default-content-wrapper');
+    if (wrapper) wrapper.before(prev);
+  }
+}
+
+/**
+ * Decorates article metadata paragraph (e.g. "SPOTLIGHT | December 18, 2024 | 2 min. read")
+ * into structured spans for styling.
+ * @param {Element} main The main container element
+ */
+function decorateArticleMeta(main) {
+  const h1 = main.querySelector('h1');
+  if (!h1) return;
+  const next = h1.nextElementSibling;
+  if (!next || next.tagName !== 'P' || !next.textContent.includes('|')) return;
+  const parts = next.textContent.split('|').map((s) => s.trim());
+  if (parts.length < 2) return;
+  next.classList.add('article-meta');
+  next.textContent = '';
+  parts.forEach((part, i) => {
+    const span = document.createElement('span');
+    span.textContent = part;
+    if (i === 0) span.classList.add('tag');
+    next.append(span);
+  });
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -124,6 +164,8 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateBreadcrumb(main);
+  decorateArticleMeta(main);
 }
 
 /**
@@ -133,6 +175,10 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+  // Apply blog-article template class based on URL path
+  if (window.location.pathname.match(/^(\/content)?\/blog\/.+/)) {
+    document.body.classList.add('blog-article');
+  }
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
