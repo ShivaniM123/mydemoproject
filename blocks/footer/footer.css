@@ -60,7 +60,7 @@ footer .footer ul li a .icon.icon-privacy-choices {
   margin-right: 8px;
 }
 
-/* Logo — centered */
+/* Mobile: Logo centered */
 footer .footer > div > div > .default-content-wrapper > p:first-child {
   text-align: center;
 }
@@ -70,7 +70,7 @@ footer .footer > div > div > .default-content-wrapper > p:first-child img {
   height: auto;
 }
 
-/* App store badges — centered */
+/* Mobile: App store badges centered */
 footer .footer > div > div > .default-content-wrapper > p:last-child {
   display: flex;
   justify-content: center;
@@ -87,8 +87,41 @@ footer .footer > div > div > .default-content-wrapper > p:last-child img {
   width: auto;
 }
 
+/* Desktop: horizontal row — logo | links | badges */
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 50px 39px 40px;
+    padding: 50px 72px 40px;
+  }
+
+  footer .footer > div > div > .default-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  footer .footer > div > div > .default-content-wrapper > p:first-child {
+    text-align: left;
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
+
+  footer .footer > div > div > .default-content-wrapper > p:first-child img {
+    width: 134px;
+  }
+
+  footer .footer ul {
+    flex: 1;
+    margin: 0;
+  }
+
+  footer .footer > div > div > .default-content-wrapper > p:last-child {
+    flex-shrink: 0;
+    gap: 16px;
+    margin: 0 0 0 20px;
+  }
+
+  footer .footer > div > div > .default-content-wrapper > p:last-child img {
+    width: 135px;
+    height: 40px;
   }
 }
