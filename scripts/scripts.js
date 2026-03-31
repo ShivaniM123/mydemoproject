@@ -1,5 +1,6 @@
 import {
   buildBlock,
+  getMetadata,
   loadHeader,
   loadFooter,
   decorateIcons,
@@ -132,25 +133,46 @@ function decorateBreadcrumb(main) {
 }
 
 /**
- * Decorates article metadata paragraph (e.g. "SPOTLIGHT | December 18, 2024 | 2 min. read")
- * into structured spans for styling.
+ * Builds the article metadata bar (category, publishDate, readTime) from page metadata.
+ * Removes any hardcoded fallback paragraph and injects a structured .article-meta element.
  * @param {Element} main The main container element
  */
 function decorateArticleMeta(main) {
+  if (!document.body.classList.contains('blog-article')) return;
+
+  const category = getMetadata('category');
+  const publishDate = getMetadata('publishDate');
+  const readTime = getMetadata('readTime');
+  if (!category && !publishDate && !readTime) return;
+
   const h1 = main.querySelector('h1');
   if (!h1) return;
+
+  // Remove hardcoded meta paragraph if present (e.g. "SPOTLIGHT | Dec 18, 2024 | 2 min. read")
   const next = h1.nextElementSibling;
-  if (!next || next.tagName !== 'P' || !next.textContent.includes('|')) return;
-  const parts = next.textContent.split('|').map((s) => s.trim());
-  if (parts.length < 2) return;
-  next.classList.add('article-meta');
-  next.textContent = '';
-  parts.forEach((part, i) => {
-    const span = document.createElement('span');
-    span.textContent = part;
-    if (i === 0) span.classList.add('tag');
-    next.append(span);
-  });
+  if (next && next.tagName === 'P' && next.textContent.includes('|')) {
+    next.remove();
+  }
+
+  const meta = document.createElement('p');
+  meta.classList.add('article-meta');
+  if (category) {
+    const tag = document.createElement('span');
+    tag.classList.add('tag');
+    tag.textContent = category;
+    meta.append(tag);
+  }
+  if (publishDate) {
+    const date = document.createElement('span');
+    date.textContent = publishDate;
+    meta.append(date);
+  }
+  if (readTime) {
+    const time = document.createElement('span');
+    time.textContent = readTime;
+    meta.append(time);
+  }
+  h1.after(meta);
 }
 
 /**
@@ -175,8 +197,8 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
-  // Apply blog-article template class based on URL path
-  if (window.location.pathname.match(/^(\/content)?\/blog\/.+/)) {
+  // Apply blog-article template class based on URL path (en-us and es-us)
+  if (window.location.pathname.match(/^(\/content)?(\/e[ns]-us)?\/blog\/.+/)) {
     document.body.classList.add('blog-article');
   }
   const main = doc.querySelector('main');
