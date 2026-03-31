@@ -438,7 +438,6 @@ header nav .nav-mobile-tools {
     margin-left: 4px;
   }
 
-  /* plain nav links */
   /* stylelint-disable no-descending-specificity */
   header nav .nav-sections > ul > li > a:not(.dropdown-trigger),
   header nav .nav-sections .default-content-wrapper > ul > li > a:not(.dropdown-trigger),
