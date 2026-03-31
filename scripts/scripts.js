@@ -141,8 +141,8 @@ function decorateArticleMeta(main) {
   if (!document.body.classList.contains('blog-article')) return;
 
   const category = getMetadata('category');
-  const publishDate = getMetadata('publishDate');
-  const readTime = getMetadata('readTime');
+  const publishDate = getMetadata('publishdate') || getMetadata('publishDate');
+  const readTime = getMetadata('readtime') || getMetadata('readTime');
   if (!category && !publishDate && !readTime) return;
 
   const h1 = main.querySelector('h1');
