@@ -58,6 +58,45 @@ main .section.promo-banner .button.primary:focus-visible {
   color: var(--primary-color);
 }
 
+/* CTA section — matches sparkdriverapp.com blog CTA */
+main .section.cta {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+main .section.cta h2 {
+  font-size: 36px;
+  color: #3b4459;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
+main .section.cta p {
+  color: #3b4459;
+  font-size: 18px;
+  margin: 0 0 16px;
+}
+
+main .section.cta .button-wrapper {
+  margin-top: 24px;
+}
+
+main .section.cta a.button {
+  background-color: #0c3c92;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+}
+
+main .section.cta a.button:hover {
+  background-color: #0a3480;
+  color: #fff;
+}
+
 /* Light offers section */
 main .section.offers-light {
   background-color: var(--section-bg-light);
