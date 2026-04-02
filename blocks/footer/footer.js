@@ -23,5 +23,10 @@ export default async function decorate(block) {
   const footer = document.createElement('div');
   while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
 
+  // footer icons: override lazy loading so they render immediately
+  footer.querySelectorAll('span.icon img').forEach((img) => {
+    img.loading = 'eager';
+  });
+
   block.append(footer);
 }

@@ -1,3 +1,4 @@
+/* Footer wrapper */
 footer {
   background-color: var(--background-color);
   border-top: 1px solid #ddd;
@@ -6,30 +7,39 @@ footer {
 footer .footer > div {
   margin: auto;
   max-width: 1440px;
-  padding: 50px 39px 40px;
+  padding: 50px 0;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+/* Mobile-first: stacked column layout */
+footer .footer > div > div > .default-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 18.75px;
+}
+
 /* Footer links list */
 footer .footer ul {
   list-style: none;
   padding: 0;
-  margin: 12px 0;
+  margin: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 footer .footer ul li {
-  color: var(--text-color);
-  font-size: var(--body-font-size-m);
+  color: #3b4459;
+  font-size: 18px;
 }
 
 footer .footer ul li a {
   color: #000;
-  font-size: var(--body-font-size-m);
+  font-size: 18px;
   text-decoration: none;
   display: inline;
   margin: 0 12px;
@@ -54,15 +64,16 @@ footer .footer ul li a .icon img {
   vertical-align: middle;
 }
 
-/* Privacy choices icon — wider than default */
-footer .footer ul li a .icon.icon-privacy-choices {
+/* Privacy icon — wider than default */
+footer .footer ul li a .icon.icon-privacy {
   width: 40px;
   margin-right: 8px;
 }
 
-/* Mobile: Logo centered */
+/* Logo */
 footer .footer > div > div > .default-content-wrapper > p:first-child {
   text-align: center;
+  margin-bottom: 12px;
 }
 
 footer .footer > div > div > .default-content-wrapper > p:first-child img {
@@ -70,12 +81,13 @@ footer .footer > div > div > .default-content-wrapper > p:first-child img {
   height: auto;
 }
 
-/* Mobile: App store badges centered */
+/* App store badges */
 footer .footer > div > div > .default-content-wrapper > p:last-child {
   display: flex;
   justify-content: center;
+  align-items: center;
   gap: 12px;
-  margin: 12px 0;
+  margin: 12px 0 48px;
 }
 
 footer .footer > div > div > .default-content-wrapper > p:last-child a {
@@ -83,25 +95,23 @@ footer .footer > div > div > .default-content-wrapper > p:last-child a {
 }
 
 footer .footer > div > div > .default-content-wrapper > p:last-child img {
-  height: 40px;
-  width: auto;
+  width: 160px;
+  height: auto;
 }
 
 /* Desktop: horizontal row — logo | links | badges */
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 50px 72px 40px;
-  }
-
   footer .footer > div > div > .default-content-wrapper {
-    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    padding: 0 72px;
   }
 
   footer .footer > div > div > .default-content-wrapper > p:first-child {
     text-align: left;
     flex-shrink: 0;
+    margin-bottom: 0;
     margin-right: 20px;
   }
 
@@ -111,7 +121,7 @@ footer .footer > div > div > .default-content-wrapper > p:last-child img {
 
   footer .footer ul {
     flex: 1;
-    margin: 0;
+    justify-content: flex-start;
   }
 
   footer .footer > div > div > .default-content-wrapper > p:last-child {
