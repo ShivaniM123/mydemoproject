@@ -33,7 +33,7 @@
 }
 
 .breadcrumb ol li a:hover {
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 .breadcrumb ol li span[aria-current="page"] {

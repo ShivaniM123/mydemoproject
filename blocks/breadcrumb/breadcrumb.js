@@ -1,6 +1,6 @@
 /**
  * Dynamically builds breadcrumbs from the URL path.
- * Resolves titles from: query-index.json → page meta name="Title" → <title> tag → slug.
+ * Resolves titles from: query-index → nav links → page metadata → slug.
  * @param {Element} block The breadcrumb block element
  */
 export default async function decorate(block) {
@@ -14,7 +14,7 @@ export default async function decorate(block) {
   const segments = path.split('/').filter(Boolean);
   if (segments.length < 2) return;
 
-  // Fetch index for title lookups
+  // Fetch query-index for title lookups
   let index = [];
   try {
     const resp = await fetch('/query-index.json');
@@ -26,21 +26,38 @@ export default async function decorate(block) {
     /* index unavailable */
   }
 
+  // Fetch nav and build a path→title map from navigation links
+  const navTitles = {};
+  try {
+    const navPath = isLocal ? '/content/nav.plain.html' : '/nav.plain.html';
+    const resp = await fetch(navPath);
+    if (resp.ok) {
+      const html = await resp.text();
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      doc.querySelectorAll('a[href]').forEach((a) => {
+        const href = a.getAttribute('href').replace(/\.html$/, '').replace(/\/$/, '');
+        if (href && a.textContent.trim()) {
+          navTitles[href] = a.textContent.trim();
+        }
+      });
+    }
+  } catch {
+    /* nav unavailable */
+  }
+
   /**
-   * Fetch a page and extract the authored Title from <meta name="Title"> tag,
-   * falling back to the <title> tag.
+   * Fetch a page and extract the authored Title from page metadata.
    */
   async function fetchPageTitle(url) {
     try {
       const resp = await fetch(url);
       if (resp.ok) {
         const html = await resp.text();
-        // Authored metadata Title (set by EDS from page metadata)
-        const metaMatch = html.match(/<meta\s+name=["']Title["']\s+content=["']([^"']*)["']/i);
-        if (metaMatch && metaMatch[1].trim()) return metaMatch[1].trim();
-        // Fallback: <title> tag
-        const titleMatch = html.match(/<title>([^<]*)<\/title>/i);
-        if (titleMatch && titleMatch[1].trim() !== 'Page not found') return titleMatch[1].trim();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const meta = doc.querySelector('meta[name="Title"]');
+        if (meta && meta.content.trim()) return meta.content.trim();
+        const { title } = doc;
+        if (title && title.trim() !== 'Page not found') return title.trim();
       }
     } catch {
       /* page unavailable */
@@ -49,22 +66,29 @@ export default async function decorate(block) {
   }
 
   /**
-   * Resolve a page title: query-index → page meta → slug.
+   * Resolve title: query-index → nav links → page metadata → slug.
    */
   async function resolveTitle(p) {
+    // 1. Query index
     const entry = index.find((e) => e.path === p || e.path === `${p}.html`);
     if (entry) return entry.title;
 
+    // 2. Navigation link text
+    const navTitle = navTitles[p] || navTitles[`${p}.html`];
+    if (navTitle) return navTitle;
+
+    // 3. Fetch page metadata
     const urls = isLocal ? [`/content${p}`, p] : [p];
     const results = await Promise.all(urls.map((url) => fetchPageTitle(url)));
     const found = results.find((t) => t !== null);
     if (found) return found;
 
+    // 4. Humanise slug
     const slug = p.split('/').pop();
     return slug.replace(/[-_]/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
   }
 
-  // Build crumbs: Home, then ancestors, then current page
+  // Build crumbs: Home → ancestors → current page
   const locale = segments[0];
   const crumbs = [{ title: 'Home', path: `/${locale}` }];
   const ancestorSegments = segments.slice(1);
