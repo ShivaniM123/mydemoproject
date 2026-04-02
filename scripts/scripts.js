@@ -68,6 +68,17 @@ function buildAutoBlocks(main) {
     }
 
     buildHeroBlock(main);
+
+    // Auto-block breadcrumb only on the page's main element (not fragments)
+    if (main === document.querySelector('main')) {
+      const bcPath = window.location.pathname.replace(/\.html$/, '').replace(/\/$/, '');
+      const bcSegments = bcPath.split('/').filter(Boolean);
+      if (bcSegments.length > 1 && !main.querySelector('.breadcrumb')) {
+        const bcSection = document.createElement('div');
+        bcSection.append(buildBlock('breadcrumb', { elems: [] }));
+        main.prepend(bcSection);
+      }
+    }
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('Auto Blocking failed', error);
