@@ -1,20 +1,289 @@
+/* Spark Driver footer — layout aligned with https://www.sparkdriverapp.com/ */
+
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #fff;
+  border-top: 1px solid #f2f2f2;
 }
 
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  margin: 0 auto;
+  max-width: 1440px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+/* Mobile: stacked — order keeps logo / links / badges sequence */
+footer .footer .spark-footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 18px 32px;
+  box-sizing: border-box;
+}
+
+/* Logo */
+footer .footer .spark-footer-logo {
+  order: 1;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+footer .footer .spark-footer-logo img {
+  width: 192px;
+  height: auto;
+  display: block;
+}
+
+/* Ensure all footer list items align on center regardless of icon presence */
+footer .footer ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer ul li {
+  display: flex;
+  align-items: center;
+}
+
+footer .footer ul li a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Link rows ordering */
+footer .footer .footer-links-stack,
+footer .footer .spark-footer-inner > ul:not(.footer-nav-primary, .footer-nav-secondary) {
+  order: 2;
+}
+
+/* Middle: two rows, grouped and centered on small screens */
+footer .footer .footer-links-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-width: 0;
+}
+
+/* App badges — placed before nav rules to satisfy specificity ordering */
+footer .footer .spark-footer-badges {
+  order: 3;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+footer .footer .spark-footer-badges a {
+  display: inline-block;
+  line-height: 0;
+}
+
+footer .footer .spark-footer-badges img {
+  width: 160px;
+  height: auto;
+  max-height: 40px;
+  object-fit: contain;
+}
+
+/* Icons — sizes aligned with sparkdriverapp.com footer */
+footer .footer ul li a .icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* Globe icon — 20×20 matching original site */
+footer .footer ul li a .icon:not(.icon-privacy) {
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+footer .footer ul li a .icon:not(.icon-privacy) img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Your Privacy Choices — 40×20 CPRA-style icon matching original site */
+footer .footer ul li a .icon.icon-privacy {
+  width: 40px;
+  height: 20px;
+  margin: 0;
+}
+
+footer .footer ul li a .icon.icon-privacy img {
+  width: 40px;
+  height: 20px;
+  object-fit: contain;
+  display: block;
+}
+
+/* Row 1 — EN + main links */
+footer .footer .footer-nav-primary {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 24px;
+  max-width: 100%;
+}
+
+footer .footer .footer-nav-primary li {
+  flex-shrink: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+footer .footer .footer-nav-primary li a {
+  color: #000;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* Row 2 — privacy + copyright */
+footer .footer .footer-nav-secondary {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 28px;
+}
+
+footer .footer .footer-nav-secondary li {
+  font-size: 16px;
+  line-height: 1.5;
+  color: #000;
+}
+
+footer .footer .footer-nav-secondary li a {
+  color: #000;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Fallback: single list (split did not run) */
+footer .footer .spark-footer-inner > ul:not(.footer-nav-primary, .footer-nav-secondary) {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 24px;
+}
+
+footer .footer .spark-footer-inner > ul:not(.footer-nav-primary, .footer-nav-secondary) li a {
+  color: #000;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+
+/* Desktop — 3-column grid: logo | centered link block | badges */
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 0;
+  }
+
+  footer .footer .spark-footer-inner {
+    display: grid;
+    grid-template-columns: minmax(120px, max-content) minmax(0, 1fr) minmax(280px, max-content);
+    grid-template-rows: auto;
+    place-items: center stretch;
+    gap: 0 40px;
+    padding: 32px 72px 40px;
+  }
+
+  footer .footer .spark-footer-logo {
+    grid-column: 1;
+    grid-row: 1;
+    place-self: center start;
+    text-align: left;
+    order: unset;
+  }
+
+  footer .footer .spark-footer-logo img {
+    width: 134px;
+  }
+
+  footer .footer .footer-links-stack {
+    grid-column: 2;
+    grid-row: 1;
+    place-self: center center;
+    align-items: flex-start;
+    width: max-content;
+    max-width: 100%;
+    gap: 10px;
+    order: unset;
+  }
+
+  footer .footer .footer-nav-primary {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  footer .footer .footer-nav-secondary {
+    justify-content: flex-start;
+  }
+
+  footer .footer .spark-footer-badges {
+    grid-column: 3;
+    grid-row: 1;
+    place-self: center end;
+    gap: 16px;
+    order: unset;
+  }
+
+  footer .footer .spark-footer-badges img {
+    width: 135px;
+    height: 40px;
+    max-height: none;
+  }
+
+  footer .footer .spark-footer-inner > ul:not(.footer-nav-primary, .footer-nav-secondary) {
+    grid-column: 2;
+    grid-row: 1;
+    place-self: center center;
+    order: unset;
   }
 }
