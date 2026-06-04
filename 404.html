@@ -26,9 +26,57 @@
           backBtn.textContent = 'Go back';
           backBtn.title = 'Go back';
           const btnContainer = document.querySelector('.button-container');
-          btnContainer.append(backBtn);
+          if (btnContainer) {
+            btnContainer.append(backBtn);
+          }
         }
       }
+    });
+  </script>
+  <script nonce="aem" type="module">
+    import { decorateMain } from '/scripts/scripts.js';
+    import { loadSections } from '/scripts/aem.js';
+
+    const getAuthor404Paths = () => {
+      const segments = window.location.pathname.split('/').filter(Boolean);
+      const locale = segments[0] && /^[a-z]{2}-[a-z]{2}$/i.test(segments[0]) ? segments[0] : null;
+      return [
+        ...(locale ? [`/${locale}/404`] : []),
+        '/404',
+      ];
+    };
+
+    const loadAuthored404 = async () => {
+      const main = document.querySelector('main.error');
+      if (!main) return;
+
+      const fallback = main.querySelector('.section');
+      const paths = getAuthor404Paths();
+
+      for (const path of paths) {
+        try {
+          const response = await fetch(`${path}.plain.html`);
+          if (!response.ok) continue;
+
+          const html = (await response.text()).trim();
+          if (!html) continue;
+
+          main.innerHTML = html;
+          decorateMain(main);
+          await loadSections(main);
+
+          if (fallback && fallback.isConnected) {
+            fallback.remove();
+          }
+          return;
+        } catch (e) {
+          // do nothing and continue to next candidate path
+        }
+      }
+    };
+
+    window.addEventListener('load', () => {
+      loadAuthored404();
     });
   </script>
   <script nonce="aem" type="module">
